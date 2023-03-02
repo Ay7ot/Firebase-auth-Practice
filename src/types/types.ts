@@ -6,22 +6,32 @@ export type AuthContextType = {
     dispatch: React.Dispatch<AppActionType>,
     signup: (email: string, password: string) => Promise<UserCredential>
     login: (email: string, password: string) => Promise<UserCredential>;
+    logout: () => Promise<void>;
+    resetPassword: (email: string) => Promise<void>;
     signUpError: string;
     emailParameter: string;
     passwordParameter: string;
     passwordConfirmParameter: string;
+    loginError: string,
+    passwordMessage: string;
 }
 
 export type AppActionType = {
     type: string;
-    payload: {
+    payload?: {
         currentUserPayload?: User | null,
         signUps?: {
-            signupErrorPayload?: string | undefined,
+            signupErrorPayload?: string,
             emailParameterPayload?: string;
             passwordParameterPayload?: string;
             passwordConfirmParameterPayload?: string;
+        };
+        login?:{
+            loginErrorPayload?: string,
+            emailParameterPayload?: string;
+            passwordParameterPayload?: string;
         }
+        passwordResetMessagePayload?: string
     }
 }
 

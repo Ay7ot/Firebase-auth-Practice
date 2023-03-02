@@ -3,18 +3,22 @@ import { auth } from "../firebase";
 import { countries } from "../Components/countries";
 import { AuthContextType } from "../types/types";
 import { authReducer } from "../reducers/reducer";
-import { signup, login } from "../functions/functions";
+import { signup, login, logout, resetPassword } from "../functions/functions";
 
 const AuthContext = React.createContext<AuthContextType>({
     currentUser: null,
     countries: countries,
     signup,
     login,
+    logout,
+    resetPassword,
     dispatch: () => {},
     signUpError: '',
     emailParameter: '',
     passwordParameter: '',
-    passwordConfirmParameter: ''
+    passwordConfirmParameter: '',
+    loginError: '',
+    passwordMessage: ''
 })
 
 export const useAuth = () => {
@@ -24,7 +28,6 @@ export const useAuth = () => {
 export const AuthProvider = ({children}: {children: ReactNode}) => {
     
     const value = useAuth()
-    
     const [loading, setLoading] = useState(true);
     const [mainState, dispatch] = useReducer(authReducer, value)
 
