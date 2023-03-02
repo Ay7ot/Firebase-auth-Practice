@@ -1,9 +1,9 @@
 import React, { ReactNode, useContext, useReducer, useState, useEffect } from "react";
 import { auth } from "../firebase";
 import { countries } from "../Components/countries";
-import { AuthContextType } from "../types";
+import { AuthContextType } from "../types/types";
 import { authReducer } from "../reducers/reducer";
-import { signup, login } from "../Components/functions/functions";
+import { signup, login } from "../functions/functions";
 
 const AuthContext = React.createContext<AuthContextType>({
     currentUser: null,
@@ -34,8 +34,7 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
             dispatch({
                 type: 'setCurrentUser',
                 payload: {
-                    currentUserPayload: user,
-                    signUps: {}
+                    currentUserPayload: user
                 }
             })
             setLoading(false)
@@ -44,7 +43,7 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
     },[])
     
     return (
-        <AuthContext.Provider value={mainState}>
+        <AuthContext.Provider value={{...mainState, dispatch }}>
             {!loading && children}
         </AuthContext.Provider>
     )

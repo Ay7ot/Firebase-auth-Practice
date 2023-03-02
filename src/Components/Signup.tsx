@@ -9,7 +9,7 @@ export default function Signup() {
   const { signup, dispatch, signUpError, emailParameter, passwordParameter, passwordConfirmParameter } = useAuth();
   // console.log(emailParameter, passwordParameter, passwordConfirmParameter);  
   
-  console.log(signUpError)
+  console.log(signUpError, emailParameter, passwordParameter)
   async function handleSignUp(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault()
     
@@ -71,26 +71,29 @@ export default function Signup() {
               }
             })}}
           />
-          <input
+         <input 
             type='password'
             className='w-full border-gray-400 searchInput p-2 border-[1px]'
             placeholder='Password'
-            onChange={(e)=>{dispatch({
-              type: 'setPasswordParameter',
+            value={passwordParameter}
+            name={passwordParameter}
+            onChange={(e)=>{
+              return dispatch({
+              type: 'setSignUpPasswordParameter',
               payload: {
                 signUps: {
                   passwordParameterPayload: e.target.value
                 }
               }
             })}}
-            value={passwordParameter}
           />
           <input 
             type='password'
             className='w-full border-gray-400 searchInput p-2 border-[1px]'
             placeholder='Password Confirmation'
             value={passwordConfirmParameter}
-            onChange={e=>{
+            name={passwordConfirmParameter}
+            onChange={(e)=>{
               return dispatch({
               type: 'setSignUpPasswordConfirmParameter',
               payload: {

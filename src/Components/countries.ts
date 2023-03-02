@@ -1,4 +1,4 @@
-import { countriesType } from "../types";
+import { countriesType } from "../types/types";
 import { nanoid } from "nanoid";
 
 export const countries: countriesType[] = [

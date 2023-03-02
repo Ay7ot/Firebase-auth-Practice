@@ -1,4 +1,4 @@
-import { AppActionType, AuthContextType } from "../types";
+import { AppActionType, AuthContextType } from "../types/types";
 
 export function authReducer(state: AuthContextType, action: AppActionType): AuthContextType {
     
