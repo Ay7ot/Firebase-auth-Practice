@@ -48,17 +48,13 @@ export default function Login() {
         type: 'setLogInError',
         payload: {
           login: {
-            loginErrorPayload: 'Failed to Login'
+            loginErrorPayload: 'Email or password Incorrect'
           }
         }
       })
     }
   }
-  
-  async function handlePasswordReset(){
-    
-  }
-  
+
   if(currentUser){
     return <Navigate to='/' />
   }

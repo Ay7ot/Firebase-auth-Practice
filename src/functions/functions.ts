@@ -1,4 +1,5 @@
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { updateEmail, updatePassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, User } from "firebase/auth"
+import { useAuth } from "../Contexts/AuthContext"
 import { auth } from "../firebase"
 
 export async function signup(email: string, password: string){
@@ -15,4 +16,12 @@ export  function logout(){
 
 export async function resetPassword(email: string){
     return await sendPasswordResetEmail(auth, email)
+}
+
+export function updateUserEmail(currentUser: User, email: string){
+    return updateEmail(currentUser, email)
+}
+
+export function updateUserPassword(currentUser: User, password: string){
+    return updatePassword(currentUser, password)
 }

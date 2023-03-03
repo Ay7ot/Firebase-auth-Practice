@@ -8,7 +8,6 @@ import { resetPassword } from '../functions/functions'
 export default function ForgotPassword() {
   
   const { currentUser, dispatch, emailParameter, resetPassword, passwordMessage } = useAuth();
-  // console.log(emailParameter, passwordParameter, passwordConfirmParameter);  
   
   useEffect(() => {
     dispatch({

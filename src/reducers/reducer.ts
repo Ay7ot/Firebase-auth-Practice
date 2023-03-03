@@ -50,6 +50,11 @@ export function authReducer(state: AuthContextType, action: AppActionType): Auth
           ...state,
           passwordMessage: action.payload?.passwordResetMessagePayload ?? ''
         }
+      case 'setUpdateError': 
+        return {
+          ...state,
+          updateEror: action.payload?.updateErrorPayload ?? ''
+        }
     default:
       return state;
   }

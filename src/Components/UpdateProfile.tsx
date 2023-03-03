@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react'
 import { useAuth } from '../Contexts/AuthContext'
 import Navbar from './Navbar'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { Alert } from 'react-bootstrap'
+import { updateUserEmail, updateUserPassword } from '../functions/functions'
 
 export default function UpdateProfile() {
   
-  const { currentUser, signup, dispatch, signUpError, emailParameter, passwordParameter, passwordConfirmParameter } = useAuth();
+  const { currentUser, updateEror, dispatch, signUpError, emailParameter, passwordParameter, passwordConfirmParameter } = useAuth();
+  const history = useNavigate();
   
   useEffect(() => {
     dispatch({
-      type: 'setPasswordResetMesssage',
+      type: 'setUpdateError',
       payload: {
-        passwordResetMessagePayload: ''
+        updateErrorPayload: ''
       }
     })
     dispatch({
@@ -20,43 +22,44 @@ export default function UpdateProfile() {
     })
   }, [])
   
-  async function handleSignUp(e: React.FormEvent<HTMLFormElement>){
+  function handleUpdateProfile(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault()
     
-    if (!emailParameter || !passwordParameter || !passwordConfirmParameter){
+    if (passwordParameter !== passwordConfirmParameter){
       return dispatch({
-        type: 'setSignUpError',
+        type: 'setUpdateError',
         payload: {
-          signUps: {
-            signupErrorPayload: 'Complete the form'
-          }
+          updateErrorPayload: 'Passwords do not match'
         }
       })
     } 
     
-    else if (passwordParameter !== passwordConfirmParameter){
-      return dispatch({
-        type: 'setSignUpError',
-        payload: {
-          signUps: {
-            signupErrorPayload: 'Passwords do not match'
-          }
-        }
-      })
+    const promises = []
+    
+    dispatch({
+      type: 'setUpdateError',
+      payload: {
+        updateErrorPayload: ''
+      }
+    })
+    
+    if(emailParameter !== '' && currentUser !== null && emailParameter !== currentUser.email){
+      promises.push(updateUserEmail(currentUser, emailParameter))
+    }
+    if(passwordParameter !== '' && currentUser !== null){
+      promises.push(updateUserPassword(currentUser, passwordParameter))
     }
     
-    try {
-      await signup(emailParameter, passwordParameter)
-    } catch {
-      return dispatch({
-        type: 'setSignUpError',
+    Promise.all(promises).then(()=>{
+      history('/')
+    }).catch(()=>{
+      dispatch({
+        type: 'setUpdateError',
         payload: {
-          signUps: {
-            signupErrorPayload: 'Failed to Sign Up'
-          }
+          updateErrorPayload: 'Failed to update account info'
         }
       })
-    }
+    })
   }
   
   if(!currentUser){
@@ -67,13 +70,13 @@ export default function UpdateProfile() {
     <div className='min-h-screen px-8 py-6 max-w-[400px] m-auto'>
       <Navbar />
       <h2 className='text-center mt-20 font-semibold text-[1.7rem] font-sourceSans leading-8'>Sign Up to Vanguard Luxe</h2>
-      {signUpError !== '' && <Alert variant='danger'>{signUpError}</Alert>}
+      {updateEror !== '' && <Alert variant='danger'>{updateEror}</Alert>}
       <h5 className='text-center mt-3'>Leave password blank to keep same</h5>
-      <form onSubmit={handleSignUp}>
+      <form onSubmit={handleUpdateProfile}>
        <div className='flex flex-col gap-3 mt-6'>
           <input 
             type='email'
-            className='w-full border-gray-400 searchInput p-2 border-[1px]'
+            className='w-fullhan border-gray-400 searchInput p-2 border-[1px]'
             placeholder='Email'
             name='emailParameter'
             onChange={(e)=>{

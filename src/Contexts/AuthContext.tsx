@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import { countries } from "../Components/countries";
 import { AuthContextType } from "../types/types";
 import { authReducer } from "../reducers/reducer";
-import { signup, login, logout, resetPassword } from "../functions/functions";
+import { signup, login, logout, resetPassword, updateUserEmail, updateUserPassword } from "../functions/functions";
 
 const AuthContext = React.createContext<AuthContextType>({
     currentUser: null,
@@ -12,13 +12,16 @@ const AuthContext = React.createContext<AuthContextType>({
     login,
     logout,
     resetPassword,
+    updateUserEmail, 
+    updateUserPassword,
     dispatch: () => {},
     signUpError: '',
     emailParameter: '',
     passwordParameter: '',
     passwordConfirmParameter: '',
     loginError: '',
-    passwordMessage: ''
+    passwordMessage: '',
+    updateEror: ''
 })
 
 export const useAuth = () => {

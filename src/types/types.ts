@@ -7,6 +7,8 @@ export type AuthContextType = {
     signup: (email: string, password: string) => Promise<UserCredential>
     login: (email: string, password: string) => Promise<UserCredential>;
     logout: () => Promise<void>;
+    updateUserEmail: (currentUser: User, email: string) => Promise<void>;
+    updateUserPassword: (currentUser: User, password: string) => Promise<void>;
     resetPassword: (email: string) => Promise<void>;
     signUpError: string;
     emailParameter: string;
@@ -14,6 +16,7 @@ export type AuthContextType = {
     passwordConfirmParameter: string;
     loginError: string,
     passwordMessage: string;
+    updateEror: string
 }
 
 export type AppActionType = {
@@ -31,7 +34,8 @@ export type AppActionType = {
             emailParameterPayload?: string;
             passwordParameterPayload?: string;
         }
-        passwordResetMessagePayload?: string
+        passwordResetMessagePayload?: string;
+        updateErrorPayload? : string;
     }
 }
 

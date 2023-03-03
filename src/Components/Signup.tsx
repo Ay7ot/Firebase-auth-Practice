@@ -38,6 +38,7 @@ export default function Signup() {
         }
       })
     } 
+    
     else if (passwordParameter !== passwordConfirmParameter){
       return dispatch({
         type: 'setSignUpError',
