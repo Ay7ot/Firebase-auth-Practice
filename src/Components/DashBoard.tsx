@@ -20,8 +20,10 @@ export default function Dashboard() {
       <Card>
         <Card.Body>
           <p className='text-semibold text-[1.2rem]'>Username: <span>{currentUser.email}</span></p>
-          <button className='p-2 bg-blue-500 rounded-lg text-white'><Link to='updateProfile' className='text-white no-underline'>Update Profile</Link></button>
-          <button className='p-2 bg-blue-500 rounded-lg text-white' onClick={()=>logout()}>Logout</button>
+          <div className='flex justify-between mx-14'>
+            <button className='p-2 bg-green-500 rounded-lg text-white'><Link to='updateProfile' className='text-white no-underline'>Update Profile</Link></button>
+            <button className='p-2 bg-green-500 rounded-lg text-white' onClick={()=>logout()}>Logout</button>
+          </div>
         </Card.Body>
       </Card>
     </div>
