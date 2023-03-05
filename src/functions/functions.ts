@@ -1,6 +1,7 @@
 import { updateEmail, updatePassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, User } from "firebase/auth"
 import { useAuth } from "../Contexts/AuthContext"
-import { auth } from "../firebase"
+import { auth, db } from "../firebase"
+import { ref, set } from "firebase/database"
 
 export async function signup(email: string, password: string){
     return await createUserWithEmailAndPassword(auth, email, password)
@@ -24,4 +25,16 @@ export function updateUserEmail(currentUser: User, email: string){
 
 export function updateUserPassword(currentUser: User, password: string){
     return updatePassword(currentUser, password)
+}
+
+export function createUserOnDataBase(email: string, password: string){
+    const reference = ref(db, 'users/' + email);
+    
+    set(
+        reference,
+        {
+            email: email,
+            password: password
+        }
+    )
 }

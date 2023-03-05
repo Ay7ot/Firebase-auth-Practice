@@ -1,14 +1,15 @@
-import React,{useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../Contexts/AuthContext'
 import Navbar from './Navbar'
 import { Link, Navigate } from 'react-router-dom'
 import { Alert } from 'react-bootstrap'
+import { signup, createUserOnDataBase } from '../functions/functions'
 
 export default function Signup() {
   
-  const { currentUser, signup, dispatch, signUpError, emailParameter, passwordParameter, passwordConfirmParameter } = useAuth();
+  const { currentUser, dispatch, signUpError, emailParameter, passwordParameter, passwordConfirmParameter } = useAuth();
   // console.log(emailParameter, passwordParameter, passwordConfirmParameter);  
-  
+  const [loading, setLoading] = useState(false)
   console.log(currentUser, signUpError, emailParameter, passwordParameter)
   
   useEffect(() => {
@@ -50,7 +51,10 @@ export default function Signup() {
       })
     }
     
+    
     try {
+      setLoading(true)
+      // createUserOnDataBase(emailParameter, passwordParameter)
       await signup(emailParameter, passwordParameter)
     } catch {
       return dispatch({
@@ -62,6 +66,8 @@ export default function Signup() {
         }
       })
     }
+    setLoading(false)
+    
   }
   
   if(currentUser){

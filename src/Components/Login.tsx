@@ -3,10 +3,11 @@ import { useAuth } from '../Contexts/AuthContext'
 import Navbar from './Navbar'
 import { Link, Navigate } from 'react-router-dom'
 import { Alert } from 'react-bootstrap'
+import { login } from '../functions/functions'
 
 export default function Login() {
   
-  const { currentUser, login, dispatch, loginError, emailParameter, passwordParameter } = useAuth();
+  const { currentUser, dispatch, loginError, emailParameter, passwordParameter } = useAuth();
   // console.log(emailParameter, passwordParameter, passwordConfirmParameter);  
   
   useEffect(() => {

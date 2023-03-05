@@ -4,12 +4,6 @@ export type AuthContextType = {
     currentUser: User | null,
     countries: countriesType[],
     dispatch: React.Dispatch<AppActionType>,
-    signup: (email: string, password: string) => Promise<UserCredential>
-    login: (email: string, password: string) => Promise<UserCredential>;
-    logout: () => Promise<void>;
-    updateUserEmail: (currentUser: User, email: string) => Promise<void>;
-    updateUserPassword: (currentUser: User, password: string) => Promise<void>;
-    resetPassword: (email: string) => Promise<void>;
     signUpError: string;
     emailParameter: string;
     passwordParameter: string;

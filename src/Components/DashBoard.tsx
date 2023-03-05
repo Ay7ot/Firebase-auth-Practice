@@ -1,11 +1,12 @@
 import React from 'react'
 import { useAuth } from '../Contexts/AuthContext'
 import { Link, Navigate } from 'react-router-dom'
-import { Button, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
+import { logout } from '../functions/functions'
 
 export default function Dashboard() {
   
-  const { currentUser, dispatch, logout } = useAuth()
+  const { currentUser, dispatch } = useAuth()
   
   console.log(currentUser)
   

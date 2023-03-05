@@ -7,7 +7,7 @@ import { resetPassword } from '../functions/functions'
 
 export default function ForgotPassword() {
   
-  const { currentUser, dispatch, emailParameter, resetPassword, passwordMessage } = useAuth();
+  const { currentUser, dispatch, emailParameter, passwordMessage } = useAuth();
   
   useEffect(() => {
     dispatch({
@@ -89,5 +89,6 @@ export default function ForgotPassword() {
        </div>
       </form>
     </div>
+    
   )
 }
